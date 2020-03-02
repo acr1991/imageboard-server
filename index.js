@@ -1,12 +1,15 @@
 const express = require("express");
 const port = process.env.PORT || 4000;
 const app = express();
+const cors = require("cors");
+const corsMiddleware = cors();
 const db = require("./db");
-const bodyParser = require("body-parser");
-const jsonParser = bodyParser.json();
-
+const Parser = express.json();
 const imageRouter = require("../image/router");
-app.use(jsonParser);
+
+app.use(Parser);
 app.use(imageRouter);
+app.use(corsMiddleware);
+//app.use(parserMiddleware);
 
 app.listen(port, () => console.log(`Listening on :${port}`));
