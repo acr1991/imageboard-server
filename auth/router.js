@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const { toJWT, toData } = require("./jwt");
 const router = new Router();
+const bcryptjs = require("bcryptjs");
+const User = require("../user/model");
 
 // define endpoints here
 
@@ -21,7 +23,7 @@ router.post("/login", (req, res, next) => {
           res.status(400).send({
             message: "Username or Email does not exist."
           });
-        } else if (bcrypt.compareSync(req.body.password, entity.password)) {
+        } else if (bcryptjs.compareSync(req.body.password, entity.password)) {
           //if the password is true, return JWT with the userId of the user (user.id)
           res.send({
             jwt: toJWT({ userId: entity.id })
