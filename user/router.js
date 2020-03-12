@@ -1,16 +1,17 @@
-const Router = require("express");
-const { User } = require("./model");
+const { Router } = require("express");
+const User = require("./model");
 const bcryptjs = require("bcryptjs");
 
 const router = new Router();
 
-router.post("/user", (req, res, next) => {
-  const user = {
-    email: req.body.email,
-    password: bcryptjs.hashSync(req.body.password, 10)
-  };
+router.post("/user", (request, response, next) => {
+  const password = bcrypt.hashSync(request.body.password, 10);
+
+  const user = { ...request.body, password };
+
   User.create(user)
-    .then(user => res.json(user))
-    .catch(error => next(error));
+    .then(user => response.send(user))
+    .catch(next);
 });
+
 module.exports = router;
