@@ -5,7 +5,7 @@ const cors = require("cors");
 const corsMiddleware = cors();
 const Parser = express.json();
 const userRouter = require("./user/router");
-//const db = require("./db");
+const db = require("./db");
 //Routers
 const imageRouter = require("./image/router");
 const loginRouter = require("./auth/router");
